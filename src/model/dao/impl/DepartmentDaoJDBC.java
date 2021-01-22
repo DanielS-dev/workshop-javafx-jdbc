@@ -12,6 +12,7 @@ import java.util.Map;
 
 import db.DB;
 import db.DbException;
+import db.DbIntegrityException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
 import model.entities.Seller;
@@ -112,9 +113,9 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
-				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage());
+				throw new DbIntegrityException("Transaction rolled back! Caused by: " + e.getMessage());
 			} catch (SQLException e1) {
-				throw new DbException("Error trying to rollback! Caused by: " + e1.getMessage());
+				throw new DbIntegrityException("Error trying to rollback! Caused by: " + e1.getMessage());
 			}
 		} finally {
 			DB.closeStatement(st);
