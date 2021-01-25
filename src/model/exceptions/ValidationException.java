@@ -13,11 +13,12 @@ public class ValidationException extends RuntimeException{
 		super(msg);
 	}
 	
-	public Map<String, String> getErros (){
+	public Map<String, String> getErrors (){
 		return errors;
 	}
 	
 	public void addError(String fieldName, String errorMessage) {
 		errors.put(fieldName, errorMessage);
 	}
+
 }
