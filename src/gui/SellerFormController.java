@@ -75,6 +75,9 @@ public class SellerFormController implements Initializable {
 
 	@FXML
 	private Label labelErrorBaseSalary;
+	
+	@FXML
+	private Label labelErrorDepartment;
 
 	@FXML
 	private Button btnSave;
@@ -159,6 +162,9 @@ public class SellerFormController implements Initializable {
 		}
 		obj.setBaseSalary(Utils.tryParseToDouble(txtBaseSalary.getText()));
 		
+		if (comboBoxDepartment.getValue() == null) {
+			exception.addError("department", "Field can't be empty");
+		}
 		obj.setDepartment(comboBoxDepartment.getValue());
 		
 		if (exception.getErrors().size() > 0) {
@@ -223,9 +229,20 @@ public class SellerFormController implements Initializable {
 	private void setErrorsMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 
-		if (fields.contains("Name")) {
-			labelErrorName.setText(errors.get("Name"));
-		}
+		labelErrorName.setText(fields.contains("name") ?
+				errors.get("name") : "");
+		
+		labelErrorEmail.setText(fields.contains("email") ?
+				errors.get("email") : "");
+		
+		labelErrorBaseSalary.setText(fields.contains("baseSalary") ?
+				errors.get("baseSalary") : "");
+		
+		labelErrorBirthDate.setText(fields.contains("birthDate") ?
+				errors.get("birthDate") : "");
+		
+		labelErrorDepartment.setText(fields.contains("department") ?
+				errors.get("department") : "");
 
 	}
 
